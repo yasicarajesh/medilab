@@ -1,0 +1,9 @@
+{
+    "connection_string": "mongodb+srv://medilab:test1234@cluster0-xoauy.mongodb.net/medilab?retryWrites=true&w=majority",
+    "options": {
+        "useNewUrlParser": true,
+        "keepAlive": true, 
+        "connectTimeoutMS": 30000,
+        "reconnectTries": 10000
+    }
+}
