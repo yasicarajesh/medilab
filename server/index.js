@@ -1,6 +1,7 @@
 const express = require('express');
 var mongoose = require('mongoose');
 var queriesModel = require('./model/query');
+var adminModel = require('./model/admin');
 var db = require('../config/database');
 var path = require('path');
 var bodyParser = require('body-parser');
@@ -18,10 +19,6 @@ function startServer() {
     app.use(bodyParser({limit: '50mb'}));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-
-    app.get('*', function(req, res) {
-        res.sendFile(path.join(__dirname, '../buildindex.html'));
-    });
 
     app.post('/query', function(req, res) {
         var {name, email, subject, message} = req.body;
@@ -45,6 +42,54 @@ function startServer() {
             console.error(err);
             res.send(500);
         });
+    });
+
+    app.post('/login', function(req, res) {
+        var {email, password} = req.body;
+        mongoose.connect(db.connection_string, db.options).then(function(con) {
+            adminModel.find({email: email, password: password}, function(err, arrOfItems) {
+                if(err) {
+                    console.error(err);
+                    res.send(500);
+                    con.disconnect();
+                }
+                if(arrOfItems.length > 0) {
+                    res.cookie('email' , email, { maxAge: 1 * 60 * 60 * 1000});
+                    res.redirect('/');
+                    con.disconnect();
+                }
+                else {
+                    res.redirect('/');
+                    con.disconnect();
+                }
+            })
+        })
+        .catch(function(err) {
+            console.error(err);
+            res.send(500);
+        })
+    });
+
+    app.get('/queries/all', function(req, res) {
+        mongoose.connect(db.connection_string, db.options).then(function(con) {
+            queriesModel.find({}, function(err, arrOfItems) {
+                if(err) {
+                    console.error(err);
+                    res.send(500);
+                    con.disconnect();
+                }
+                res.send(arrOfItems);
+                con.disconnect();
+            }) 
+        })
+        .catch(function(err) {
+            console.error(err);
+            res.send(500);
+        })
+    });
+
+    app.get('*', function(req, res) {
+        res.sendFile(path.join(__dirname, '../build/index.html'));
     });
 
     app.listen(port, 

@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.admin-table {
+  margin: 40px 20px;
+}
+
+.admin-table-inner {
+  width: 100%;
+}
