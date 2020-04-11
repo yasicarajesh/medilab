@@ -1,5 +1,7 @@
 import React from 'react';
 import Cookies from 'js-cookie';
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
 import axios from 'axios';
 
 
@@ -7,7 +9,8 @@ class Admin extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            username: Cookies.get('email')
+            username: Cookies.get('email'),
+            modal: false
         };
         axios.get('/queries/all').then(function(res) {
             this.setState({data: res.data});
@@ -18,6 +21,12 @@ class Admin extends React.Component{
         })
         console.log(this.state);
     }
+  feedbackOpen() {
+    this.setState({modal: true});
+  }
+  onCloseModal() {
+      this.setState({modal: false});
+  }
   render(){
       if(!this.state.username) {
         return(
@@ -71,11 +80,17 @@ class Admin extends React.Component{
                     <td>{rowInfo.email}</td>
                     <td>{rowInfo.subject}</td>
                     <td>{rowInfo.message}</td>
+                    <td><button onClick={this.feedbackOpen.bind(this)}>Feedback</button></td>
                 </tr>
             );
         }
         return(
             <>
+                <Modal open={this.state.modal} onClose={this.onCloseModal.bind(this)} center>
+                    <h2 class="admin-feedback">Feedback</h2>
+                    <textarea class="admin-text" rows="10" cols="80"></textarea>
+                    <button class="admin-send">Send</button>
+                </Modal>
                 <div class="admin-table">
                     <table class="admin-table-inner">
                         <thead>
@@ -85,7 +100,7 @@ class Admin extends React.Component{
                             <th>Message</th>
                         </thead>
                         <tbody>
-                            {this.state.data && this.state.data.map(rowGenerator)}
+                            {this.state.data && this.state.data.map(rowGenerator.bind(this))}
                         </tbody>
                     </table>
                 </div>
