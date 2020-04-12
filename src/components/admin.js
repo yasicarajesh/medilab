@@ -10,7 +10,9 @@ class Admin extends React.Component{
         super(props);
         this.state = {
             username: Cookies.get('email'),
-            modal: false
+            modal: false,
+            feedback: '',
+            currentEmail: ''
         };
         axios.get('/queries/all').then(function(res) {
             this.setState({data: res.data});
@@ -21,11 +23,26 @@ class Admin extends React.Component{
         })
         console.log(this.state);
     }
-  feedbackOpen() {
+  feedbackOpen(email) {
+    console.log(email);
+    this.setState({currentEmail: email});
     this.setState({modal: true});
   }
   onCloseModal() {
       this.setState({modal: false});
+  }
+  updateValue(event) {
+    this.setState({feedback: event.target.value});
+  }
+  sendEmail() {
+    axios.post('/email', {email: this.state.currentEmail, message: this.state.feedback}).then(function(res) {
+            if(res.data.message) {
+                this.onCloseModal();
+            }
+        }.bind(this))
+        .catch(function(err) {
+            console.log(err);
+        })
   }
   render(){
       if(!this.state.username) {
@@ -80,7 +97,7 @@ class Admin extends React.Component{
                     <td>{rowInfo.email}</td>
                     <td>{rowInfo.subject}</td>
                     <td>{rowInfo.message}</td>
-                    <td><button onClick={this.feedbackOpen.bind(this)}>Feedback</button></td>
+                    <td><button onClick={this.feedbackOpen.bind(this, rowInfo.email)}>Feedback</button></td>
                 </tr>
             );
         }
@@ -88,8 +105,8 @@ class Admin extends React.Component{
             <>
                 <Modal open={this.state.modal} onClose={this.onCloseModal.bind(this)} center>
                     <h2 class="admin-feedback">Feedback</h2>
-                    <textarea class="admin-text" rows="10" cols="80"></textarea>
-                    <button class="admin-send">Send</button>
+                    <textarea class="admin-text" rows="10" cols="80" value={this.state.feedback} onChange={this.updateValue.bind(this)}></textarea>
+                    <button class="admin-send" onClick={this.sendEmail.bind(this)}>Send</button>
                 </Modal>
                 <div class="admin-table">
                     <table class="admin-table-inner">

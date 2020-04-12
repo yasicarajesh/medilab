@@ -11,6 +11,7 @@
     "express": "^4.17.1",
     "js-cookie": "^2.2.1",
     "mongoose": "^5.9.7",
+    "nodemailer": "^6.4.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-responsive-modal": "^5.0.2",

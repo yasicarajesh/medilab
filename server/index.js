@@ -1,5 +1,6 @@
 const express = require('express');
 var mongoose = require('mongoose');
+var mail = require('./mail');
 var queriesModel = require('./model/query');
 var adminModel = require('./model/admin');
 var db = require('../config/database');
@@ -86,6 +87,19 @@ function startServer() {
             console.error(err);
             res.send(500);
         })
+    });
+
+    app.post('/email', function(req, res) {
+        var message= req.body.message;
+        var email = req.body.email;
+        mail(email, 'Regarding your Appointment/Queries', message).then(function(info){
+            console.info(`Email sent ${info.response}`);
+            res.send({message: 'Email sent to the mail id. Please check.'});
+        })
+        .catch(function(err) {
+            console.log(err);
+            res.send(500);
+        });
     });
 
     app.get('*', function(req, res) {
