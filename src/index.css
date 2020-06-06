@@ -42,3 +42,49 @@ code {
   height: 30px;
   border-radius: 5px;
 }
+
+.App {
+  display: flex;
+}
+.charts {
+  width: 75%;
+  display: flex;
+  flex-wrap: wrap;
+  margin:16px;
+  border: 1px solid grey;
+  border-radius: 4px;
+}
+.personal-info {
+  text-align: left;
+  width: 25%;
+  margin:16px;
+  font-size: 16px;
+  color: black;
+  font-weight: 600;
+  border: 1px solid grey;
+  border-radius: 4px;
+}
+.personal-info > div {
+  margin: 24px;
+}
+.personal-info > div > span{
+  color: blue;
+}
+.chart-graph {
+  width: 600px;
+  height: 500px;
+}
+.chart-graph > canvas {
+    width: 400px;
+    height: 400px;
+}
+.emp-details {
+  margin: 16px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+}
+.emp-details > div{
+  margin: 16px;
+}

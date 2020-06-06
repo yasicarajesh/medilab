@@ -15,7 +15,11 @@ class Doctor extends React.Component{
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="thumbnail">
-                            <img src="asserts/img/doctor1.jpg" alt="..." class="team-img"/>
+                            <marquee scrollamount="10"
+                            direction="left"
+                            behavior ="scroll">
+                                <img src="asserts/img/doctor1.jpg" alt="..." class="team-img"/>
+                            </marquee>
                             <div class="caption">
                             <h3>Jessica Wally</h3>
                             <p>Doctor</p>
@@ -29,7 +33,11 @@ class Doctor extends React.Component{
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="thumbnail">
+                        <marquee scrollamount="10"
+                            direction="left"
+                            behavior ="scroll">
                             <img src="asserts/img/doctor2.jpg" alt="..." class="team-img"/>
+                        </marquee>
                             <div class="caption">
                             <h3>Iai Donas</h3>
                             <p>Doctor</p>
@@ -43,7 +51,11 @@ class Doctor extends React.Component{
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="thumbnail">
+                        <marquee scrollamount="10"
+                            direction="left"
+                            behavior ="scroll">
                             <img src="asserts/img/doctor3.jpg" alt="..." class="team-img"/>
+                        </marquee>
                             <div class="caption">
                             <h3>Amanda Denyl</h3>
                             <p>Doctor</p>
@@ -57,7 +69,11 @@ class Doctor extends React.Component{
                         </div>
                         <div class="col-md-3 col-sm-3 col-xs-6">
                         <div class="thumbnail">
+                        <marquee scrollamount="10"
+                            direction="left"
+                            behavior ="scroll">
                             <img src="asserts/img/doctor4.jpg" alt="..." class="team-img"/>
+                            </marquee>
                             <div class="caption">
                             <h3>Jason Davis</h3>
                             <p>Doctor</p>

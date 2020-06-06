@@ -22,7 +22,7 @@ class Banner extends React.Component{
                 </div>
                 <div className="collapse navbar-collapse navbar-right" id="myNavbar">
                 <ul className="nav navbar-nav">
-                <li className="active"><a href="#admin">Admin</a></li>
+                <li className="active"><a href="#admin">Login</a></li>
                 <li className="active"><a href="#banner">Home</a></li>
                 <li className=""><a href="#service">Services</a></li>
                 <li className=""><a href="#about">About</a></li>
